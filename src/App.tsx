@@ -16,7 +16,7 @@ import NASAImageLibrary from "./components/NASAImageLibrary";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="bg-gradient-to-br from-gray-500 to-black min-h-screen h-full">
         <Header />
         <main>
           <Routes>
@@ -29,9 +29,9 @@ function App() {
               element={
                 <>
                   <Apod />
+                  <NASAImageLibrary />
                   <MarsRoverPhotos />
                   <NeoWs />
-                  <NASAImageLibrary />
                 </>
               }
             />
