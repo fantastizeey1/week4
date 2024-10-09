@@ -9,13 +9,17 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">
-        <img src="/path-to-your-logo.png" alt="Logo" className="h-8 w-auto" />
+    <header className="bg-gray-800 w-full px-10 text-white p-4 flex  items-center">
+      <Link to="/" className="text-2xl font-bold w-1/2">
+        <img
+          src="/fantastizeey-logo-trans.png"
+          alt="Logo"
+          className="h-8 w-auto"
+        />
       </Link>
-      <nav className="hidden md:flex space-x-4">
-        <Link to="/option1" className="hover:underline">
-          Option 1
+      <nav className="hidden md:flex space-x-24 justify-around">
+        <Link to="/SpaceApi" className="hover:underline">
+          SpaceApi
         </Link>
         <Link to="/option2" className="hover:underline">
           Option 2
@@ -55,11 +59,11 @@ const Header: React.FC = () => {
               aria-labelledby="options-menu"
             >
               <Link
-                to="/option1"
+                to="/SpaceApi"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                 role="menuitem"
               >
-                Option 1
+                SpaceApi
               </Link>
               <Link
                 to="/option2"
