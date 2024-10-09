@@ -1,4 +1,3 @@
-import React from "react";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import { Link } from "react-router-dom";
 

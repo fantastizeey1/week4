@@ -21,9 +21,13 @@ const Jokeapi: React.FC = () => {
         `https://v2.jokeapi.dev/joke/Any?type=${type}`
       );
       if (response.data.type === "twopart") {
-        setJoke(`${response.data.setup} - ${response.data.delivery}`);
-      } else {
-        setJoke(response.data.joke);
+        setJoke(
+          response.data.type === "twopart" &&
+            response.data.setup &&
+            response.data.delivery
+            ? `${response.data.setup} - ${response.data.delivery}`
+            : response.data.joke || null
+        );
       }
     } catch (error) {
       console.error(error);
