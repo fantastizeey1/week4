@@ -37,7 +37,7 @@ const Adviceapi: React.FC = () => {
   }, []); // Run only once when the component mounts
 
   return (
-    <div className="advice p-6 bg-gradient-to-br from-gray-900 to-black rounded-lg shadow-xl max-w-md mx-auto mt-10">
+    <div className="advice p-6 bg-gradient-to-br from-gray-900 to-black rounded-2xl shadow-xl max-w-md mx-5 md:mx-auto mt-10">
       <h2 className="text-3xl font-bold text-pink-400 mb-6 text-center">
         Advice Slip
       </h2>

@@ -9,6 +9,10 @@ const Header: React.FC = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const closeNav = () => {
+    setDropdownOpen(false);
+  };
+
   const isActive = (path: string) => {
     return location.pathname === path
       ? "text-blue-500"
@@ -16,7 +20,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-gray-800 w-full px-10 text-white p-4 flex items-center">
+    <header className="bg-gray-800 w-full px-10 text-white p-4 justify-between flex items-center">
       <Link to="/" className="text-2xl font-bold w-1/2">
         <img
           src="/fantastizeey-logo-trans.png"
@@ -81,7 +85,7 @@ const Header: React.FC = () => {
           )}
         </button>
         {dropdownOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-20 transition-all duration-300 ease-in-out">
+          <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50 transition-all duration-300 ease-in-out">
             <div
               className="py-1"
               role="menu"
@@ -94,6 +98,7 @@ const Header: React.FC = () => {
                   "/api/advice-slip"
                 )} hover:bg-gray-700`}
                 role="menuitem"
+                onClick={closeNav}
               >
                 Advice-slip
               </Link>
@@ -103,6 +108,7 @@ const Header: React.FC = () => {
                   "/api/joke-api"
                 )} hover:bg-gray-700`}
                 role="menuitem"
+                onClick={closeNav}
               >
                 Jokes-api
               </Link>
@@ -112,6 +118,7 @@ const Header: React.FC = () => {
                   "/api/countries-api"
                 )} hover:bg-gray-700`}
                 role="menuitem"
+                onClick={closeNav}
               >
                 Countries-api
               </Link>
@@ -121,6 +128,7 @@ const Header: React.FC = () => {
                   "/api/nasa-api"
                 )} hover:bg-gray-700`}
                 role="menuitem"
+                onClick={closeNav}
               >
                 Nasa-api
               </Link>

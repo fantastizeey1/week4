@@ -7,12 +7,23 @@ interface Joke {
   joke?: string;
   setup?: string;
   delivery?: string;
+  flags: {
+    nsfw: boolean;
+    religious: boolean;
+    political: boolean;
+    racist: boolean;
+    sexist: boolean;
+    explicit: boolean;
+  };
+  safe: boolean;
+  category: string;
 }
 
 const Jokeapi: React.FC = () => {
   const [joke, setJoke] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [type, setType] = useState<string>("single");
+  const [flags, setFlags] = useState<string[]>([]); // New state to store flags
 
   const fetchJoke = async () => {
     setLoading(true);
@@ -20,15 +31,22 @@ const Jokeapi: React.FC = () => {
       const response = await axios.get<Joke>(
         `https://v2.jokeapi.dev/joke/Any?type=${type}`
       );
-      if (response.data.type === "twopart") {
-        setJoke(
-          response.data.type === "twopart" &&
-            response.data.setup &&
-            response.data.delivery
-            ? `${response.data.setup} - ${response.data.delivery}`
-            : response.data.joke || null
-        );
+      const jokeData = response.data;
+
+      // Handling both single and twopart joke types
+      if (jokeData.type === "twopart") {
+        setJoke(`${jokeData.setup} - ${jokeData.delivery}`);
+      } else {
+        setJoke(jokeData.joke || "No joke available.");
       }
+
+      // Extract flags where the value is true
+      const flagEntries = Object.entries(jokeData.flags);
+      const activeFlags = flagEntries
+        .filter(([_, value]) => value)
+        .map(([key]) => key);
+
+      setFlags(activeFlags); // Set the flags in state
     } catch (error) {
       console.error(error);
       setJoke("Oops, something went wrong! Try again.");
@@ -42,7 +60,7 @@ const Jokeapi: React.FC = () => {
   }, [type]);
 
   return (
-    <div className="joke-container p-8 bg-gray-900 text-gray-300 rounded-xl shadow-lg max-w-lg mx-auto mt-10">
+    <div className="joke-container p-8 bg-gray-900 mx-4 text-gray-300 rounded-xl shadow-lg max-w-lg md:mx-auto mt-10">
       <h2 className="text-4xl font-bold text-pink-400 mb-6 text-center tracking-wide">
         Joke of the Day
       </h2>
@@ -62,9 +80,23 @@ const Jokeapi: React.FC = () => {
           <div className="w-12 h-12 border-4 border-gray-700 border-t-4 border-pink-500 rounded-full animate-spin"></div>
         </div>
       ) : (
-        <p className="text-xl font-medium text-white text-center mb-6">
-          {joke ? `"${joke}"` : "No joke available at the moment."}
-        </p>
+        <div>
+          <p className="text-xl font-medium text-white text-center mb-6">
+            {joke ? `"${joke}"` : "No joke available at the moment."}
+          </p>
+          {flags.length > 0 && (
+            <div className="text-sm text-red-400 text-center mb-6">
+              <p>Warning: This joke contains:</p>
+              <ul>
+                {flags.map((flag, index) => (
+                  <li key={index} className="capitalize">
+                    {flag} Contents
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       )}
       <button
         onClick={fetchJoke}
